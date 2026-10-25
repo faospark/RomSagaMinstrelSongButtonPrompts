@@ -1,0 +1,22 @@
+# Build and compilation outputs
+bin/
+obj/
+dist/
+*.zip
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE and Editor files
+.vs/
+.vscode/
+.idea/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
