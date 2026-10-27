@@ -9,11 +9,17 @@ A **BepInEx 6 (IL2CPP)** mod for **Romancing SaGa: Minstrel Song Remastered** (S
 - **Multiple Controller Prompt Styles**:
   - `PS4`: Classic PlayStation / DualShock 4 styled button prompts with iconic colors ($\times$, $\bigcirc$, $\square$, $\triangle$, L1/R1, L2/R2, Share/Options).
   - `PS5`: DualSense styled button prompts (White / Minimalist glyphs).
-  - `Switch`: Nintendo Switch style button prompts (B/A/Y/X layout, L, R, ZL, ZR, +, -).
+  - `Switch`: Nintendo layout (B/A/Y/X layout, L, R, ZL, ZR, +, -). *(See Technical Note below)*
   - `XboxOne`: Xbox One / Series style button prompts.
   - `Steam`: Steam Controller prompt set.
   - `Keyboard`: Keyboard and mouse glyphs.
   - `Auto`: Game default automatic detection.
+
+> [!NOTE]
+> **Important Technical Note on Nintendo Switch Prompts**:
+> Reverse engineering revealed that while Nintendo Switch architecture and enums (`ButtonIconPlatformType.Switch = 3`, `nxIconFilaPath = "NX/btn_list_nx"`) exist in the game engine's C# code and native jump tables, **no Nintendo Switch sprite sheet is bundled in the PC game assets** (the developers omitted `btn_list_nx` from PC `.assets`).
+> On PC, selecting `Switch` utilizes the game's built-in neutral circular prompt set (`btn_list_steam`) combined with the game's native `IsNintendoLayout` button remapping logic (swapping Confirm to `B` and Cancel to `A`), giving an authentic Nintendo controller experience without missing button glyphs.
+
 - **Dynamic Dialogue & Tag Replacement**: Patches TextMeshPro tags and `ButtonIconSpriteAssetContainer` to ensure in-game text prompts (`<sprite name="...">`) dynamically display the selected controller layout.
 - **Smart Input Detection**: By default (`ForceWhenUsingKeyboard = false`), keyboard and mouse prompts are displayed when typing or moving the mouse, and seamlessly switch to your chosen PlayStation / custom controller prompts as soon as a gamepad is used.
 - **In-Game Hotkey Cycle (`F9`)**: Press **`F9`** anytime during gameplay to cycle through styles on-the-fly (`PS4` &rarr; `PS5` &rarr; `Switch` &rarr; `XboxOne` &rarr; `Auto`) with instant on-screen UI refresh and automatic config persistence.
@@ -77,8 +83,8 @@ The release package is bundled with the complete directory structure for instant
 1. Start the game through Steam.
 2. In the BepInEx console or log, you will see:
    ```text
-   [Info   :   BepInEx] Loading [Romancing SaGa Minstrel Song Button Prompts 1.0.0]
-   [Info   :Romancing SaGa Minstrel Song Button Prompts] Initializing Romancing SaGa Minstrel Song Button Prompts v1.0.0...
+   [Info   :   BepInEx] Loading [Romancing SaGa Minstrel Song Button Prompts 1.0.1]
+   [Info   :Romancing SaGa Minstrel Song Button Prompts] Initializing Romancing SaGa Minstrel Song Button Prompts v1.0.1...
    [Info   :Romancing SaGa Minstrel Song Button Prompts] Romancing SaGa Minstrel Song Button Prompts loaded! Active prompt style: PS4
    ```
 3. Your controller prompts in the title screen, battle menus, and button remapping screen will now display PlayStation button glyphs.
@@ -150,7 +156,7 @@ dotnet build -c Release
 
 To build a complete distributable release ZIP package:
 ```powershell
-.\build_release.ps1 -Version 1.0.0
+.\build_release.ps1 -Version 1.0.1
 ```
 
 ---
@@ -158,4 +164,3 @@ To build a complete distributable release ZIP package:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
