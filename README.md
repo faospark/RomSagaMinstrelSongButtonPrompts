@@ -4,18 +4,6 @@ A **BepInEx 6 (IL2CPP)** mod for **Romancing SaGa: Minstrel Song Remastered** (S
 
 ---
 
-## Showcase
-
-| PlayStation 4 / PSX (Colored) | PlayStation 5 (DualSense Monochrome) |
-| :---: | :---: |
-| ![PS4 Prompts](docs/images/showcase_ps4.jpg) | ![PS5 Prompts](docs/images/showcase_ps5.jpg) |
-
-| Nintendo Switch (B/A/Y/X) | Xbox One / Series (Default) |
-| :---: | :---: |
-| ![Switch Prompts](docs/images/showcase_switch.jpg) | ![Xbox Prompts](docs/images/showcase_xbox.jpg) |
-
----
-
 ## Features
 
 - **Multiple Controller Prompt Styles**:

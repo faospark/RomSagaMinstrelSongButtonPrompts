@@ -105,6 +105,7 @@ public static class Patches
 
     /// <summary>
     /// Forces the platform type when retrieving specific sprite icons, protecting keyboard keys from corruption.
+    /// On PC, Nintendo Switch circular prompts are located in the Steam sprite sheet (combined with NintendoLayout).
     /// </summary>
     [HarmonyPatch(typeof(ButtonIconContainer), nameof(ButtonIconContainer.GetButtonIconSprite))]
     [HarmonyPrefix]
@@ -115,7 +116,10 @@ public static class Patches
         {
             if (ShouldOverride(out var target))
             {
-                buttonPlatformType = target;
+                // On PC, Switch prompts use the Steam circular button sprite sheet
+                buttonPlatformType = target == ButtonIconPlatformType.Switch
+                    ? ButtonIconPlatformType.Steam
+                    : target;
             }
         }
     }
@@ -173,19 +177,6 @@ public static class Patches
     }
 
     /// <summary>
-    /// Updates ButtonIconController connected controller state so UI elements stay aligned.
-    /// </summary>
-    [HarmonyPatch(typeof(ButtonIconController), nameof(ButtonIconController.conectControllerType), MethodType.Getter)]
-    [HarmonyPostfix]
-    public static void ButtonIconController_conectControllerType_Postfix(ref eControllerType __result)
-    {
-        if (ShouldOverrideControllerType(out var target))
-        {
-            __result = target;
-        }
-    }
-
-    /// <summary>
     /// Allows overriding Nintendo layout (button A/B swap) if Switch prompts are active or user specifies.
     /// </summary>
     [HarmonyPatch(typeof(PlatformBridge), nameof(PlatformBridge.IsNintendoLayout))]
@@ -214,4 +205,3 @@ public static class Patches
             __result = true;
     }
 }
-
